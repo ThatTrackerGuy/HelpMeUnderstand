@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Help Me Understand</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      font-weight: normal;
+      font-size: 1.5rem;
+      margin-bottom: 40px;
+    }
+
+    .button {
+      border: 1px solid #fff;
+      padding: 10px 20px;
+      background: transparent;
+      color: #fff;
+      font-size: 1rem;
+      cursor: not-allowed;
+      opacity: 0.3;
+      pointer-events: none;
+      margin-bottom: 30px;
+    }
+
+    .countdown {
+      font-size: 0.9rem;
+      color: #111; /* very dark gray – nearly invisible */
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>log.txt:</h1>
+  <div class="button">Download</div>
+  <div class="countdown" id="countdown"></div>
+
+  <script>
+    const countdownElement = document.getElementById('countdown');
+    const targetDate = new Date("August 18, 2025 00:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance <= 0) {
+        countdownElement.textContent = '';
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownElement.textContent = `Time remaining: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown(); // run once immediately
+  </script>
+</body>
+</html>
